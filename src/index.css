@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── Sky Blue primary palette ── */
+  --grad1: #0ea5e9;   /* sky-500  */
+  --grad2: #38bdf8;   /* sky-400  */
+  --grad3: #06b6d4;   /* cyan-500 */
+  --grad-dark: #0284c7; /* sky-600 */
+  --sidebar-w: 260px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #0ea5e933; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #0ea5e966; }
+
+/* ── Gradient text ── */
+.grad-text {
+  background: linear-gradient(135deg, var(--grad-dark), var(--grad1), var(--grad3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Gradient bg (sky → cyan) ── */
+.grad-bg {
+  background: linear-gradient(135deg, var(--grad-dark) 0%, var(--grad1) 50%, var(--grad3) 100%);
+}
+
+/* ── Soft sky tint bg ── */
+.grad-bg-soft {
+  background: linear-gradient(135deg, #e0f2fe 0%, #cffafe 100%);
+}
+.dark .grad-bg-soft {
+  background: linear-gradient(135deg, #0c4a6e 0%, #164e63 100%);
+}
+
+/* ── Glass card ── */
+.glass {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ── Animations ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%  { transform: translateY(-20px) rotate(5deg); }
+  66%  { transform: translateY(-10px) rotate(-3deg); }
+}
+@keyframes fade-up {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes bounce-in {
+  0%   { transform: scale(0);   opacity: 0; }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes bellShake {
+  0%,100% { transform: rotate(0deg);   }
+  15%     { transform: rotate(15deg);  }
+  30%     { transform: rotate(-12deg); }
+  45%     { transform: rotate(10deg);  }
+  60%     { transform: rotate(-8deg);  }
+  75%     { transform: rotate(5deg);   }
+}
+@keyframes badgePop {
+  0%   { transform: scale(0);   opacity: 0; }
+  70%  { transform: scale(1.3); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+@keyframes pulseRing {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  100% { transform: scale(2.5); opacity: 0;   }
+}
+
+.animate-float        { animation: float      6s ease-in-out infinite;      }
+.animate-float-delay  { animation: float      6s ease-in-out infinite 2s;   }
+.animate-float-delay2 { animation: float      6s ease-in-out infinite 4s;   }
+.animate-fade-up      { animation: fade-up    0.6s ease forwards;           }
+.animate-bounce-in    { animation: bounce-in  0.5s ease forwards;           }
+.animate-spin-slow    { animation: spin-slow  8s linear infinite;           }
+
+/* ── Skeleton loader ── */
+.skeleton {
+  background: linear-gradient(90deg, #f0f9ff 25%, #e0f2fe 50%, #f0f9ff 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+.dark .skeleton {
+  background: linear-gradient(90deg, #0c1a2e 25%, #0f2744 50%, #0c1a2e 75%);
+  background-size: 200% 100%;
+}
+
+/* ── Kanban drag ── */
+.kanban-col { min-height: 200px; transition: background 0.2s; }
+
+/* ── Priority badges ── */
+.badge-critical { background: #fee2e2; color: #dc2626; }
+.badge-high     { background: #ffedd5; color: #ea580c; }
+.badge-medium   { background: #fef9c3; color: #ca8a04; }
+.badge-low      { background: #dcfce7; color: #16a34a; }
+.dark .badge-critical { background: #450a0a; color: #fca5a5; }
+.dark .badge-high     { background: #431407; color: #fdba74; }
+.dark .badge-medium   { background: #422006; color: #fde047; }
+.dark .badge-low      { background: #052e16; color: #86efac; }
+
+/* ── Status badges ── */
+.status-todo        { background: #f0f9ff; color: #0369a1; }
+.status-in_progress { background: #e0f2fe; color: #0284c7; }
+.status-review      { background: #cffafe; color: #0891b2; }
+.status-done        { background: #f0fdf4; color: #16a34a; }
+.dark .status-todo        { background: #0c2340; color: #7dd3fc; }
+.dark .status-in_progress { background: #0c3050; color: #38bdf8; }
+.dark .status-review      { background: #0a3040; color: #22d3ee; }
+.dark .status-done        { background: #052e16; color: #4ade80; }
+
+/* ── Sidebar ── */
+.sidebar { width: var(--sidebar-w); transition: transform 0.3s ease; }
+
+/* ── Modal backdrop ── */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Tooltip ── */
+.tooltip { position: relative; }
+.tooltip::after {
+  content: attr(data-tip);
+  position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+  background: #0c4a6e; color: #fff; font-size: 11px; padding: 4px 8px;
+  border-radius: 6px; white-space: nowrap; opacity: 0; pointer-events: none;
+  transition: opacity 0.2s;
+}
+.tooltip:hover::after { opacity: 1; }
+
+/* ── Progress bar ── */
+.progress-bar {
+  height: 6px; border-radius: 99px;
+  background: linear-gradient(90deg, var(--grad-dark), var(--grad1), var(--grad3));
+  transition: width 0.6s ease;
+}
+
+/* ── Input focus ring ── */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.25);
+}
+
+/* ── Sky blue link/accent ── */
+.text-accent   { color: var(--grad1); }
+.border-accent { border-color: var(--grad1); }
+.bg-accent     { background: var(--grad1); }
